@@ -8,7 +8,7 @@ def prime_factors(n):
     Returns:
         list: A list of prime factors of n.
     """
-        factors = []
+    factors = []
     # Handle the factor of 2
     while n % 2 == 0:
         factors.append(2)
