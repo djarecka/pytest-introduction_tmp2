@@ -8,18 +8,19 @@ def prime_factors(n):
     Returns:
         list: A list of prime factors of n.
     """
-    factors = []
+        factors = []
     # Handle the factor of 2
     while n % 2 == 0:
         factors.append(2)
         n //= 2
     # Handle odd factors from 3 upwards
-    for i in range(3, int(n ** 0.5), 2):
+    for i in range(3, int(n ** 0.5) + 1, 2):
         while n % i == 0:
             factors.append(i)
             n //= i
 
     return factors
+
 
 def test_prime_factors():
     assert prime_factors(8) == [2, 2, 2]
