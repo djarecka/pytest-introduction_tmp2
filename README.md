@@ -12,208 +12,219 @@
 </header>
 
 <!--
-  <<< Author notes: Step 1 >>>
-  Choose 3-5 steps for your course.
-  The first step is always the hardest, so pick something easy!
-  Link to docs.github.com for further explanations.
-  Encourage users to open new tabs for steps!
-  TBD-step-1-notes.
+  <<< Author notes: Step 2 >>>
+  Start this step by acknowledging the previous step.
+  Define terms and link to docs.github.com.
+  TBD-step-2-notes.
 -->
 
+# Week 2: Introduction to `pytest`
 
-# Week 1: Introduction to testing in Python
+In this part, we will continue working on the example from the part 1.
+We will also learn about `pytest` - a testing framework for Python.
 
-In the first part of the course, we will learn basic information about testing 
-of the code, in particular testing in Python.
-
-## 1 :book: Why do we test the code?
-
-Testing software is an important step in the development process.
-A good set of tests can help you to ensure that the code:
-- fulfills its requirements; 
-- provides reliable output under various conditions; 
-- is compatible with different systems and environments. 
-
-Additionally, tests can help you to:
-- makes you think about desirable output;
-- improves readability of your code.
-
-
-## 2 :book: Various types of tests
-
-### Unit tests
-
-- work on isolated parts (units) of the program
-- verify that units operate correctly in various scenarios
-- usually compare observed results to well known expected results
-
-### Integration tests
-
-- combine individual software modules and test as a group;
-- similar structure as unit tests: compare observed results to expected results, 
-but the expected result can be more complicated to represent.
-
-### Regression tests
-
-- verify that software previously developed and tested still performs correctly 
-even after it was changed or interfaced with other software;
-- you don't have to know the expected result, the assumption is that the past results were correct.
-
-## 3 :book: Science and software testing
-
-- We all question/test many things in our scientific work
-
-- When writing a program, we often execute a simple example first and check the output
-
-Writing software tests for your scientific code is:
-- translating your ideas for verification to programming code
-- automating the process of verification, so you can do it on a regular basis
-
-In case you are still not convinced, I recommend reading the following articles: 
-- [The most infamous bugs in the history of software development](https://historyofcomputers.eu/software/historys-worst-software-error-top-9-disasters/)
-- [A Prof. Geoffrey Chang story who had to retract 5 articles (3 from Science, PNAS, J.Mol.Biol.)](https://www.science.org/doi/10.1126/science.314.5807.1856)
-
-
-## 4 :book: The `assert` statement
-
-The simplest way of testing in Python is using the `assert` statement.
-The `assert` statement is used to check the condition. 
-If the condition is `True`, the program will continue to execute.
-If the condition is `False`, the program will raise an `AssertionError`.
-For example, if you run:
-
-```python
-assert 2 == 1 + 1
-```
-the program will continue to execute, because `2 == 1 + 1` is `True`.
-However, if you run:
-```python
-assert 3 == 1 +1
-```
-the program will raise an `AssertionError`, because `3 == 1 + 1` is `False`.
-
-However, the `assert` statement doesn't have to be used only for simple conditions, 
-where you compare if two values are equal by using `==`.
-You can use the `assert` statement to check:
-  - if one value is bigger than the other, e.g., `assert 3 > 2`
-  - if one value is in the list, e.g., `assert 'a' in ['a', 'b', 'c']`
-  - if one value is NOT in the list, e.g., `assert 'd' not in ['a', 'b', 'c']`
-  - if the length of the list is equal to 3, e.g., `assert len(['a', 'b', 'c']) == 3`
-  - if the key is in the dictionary, e.g., `assert 'key' in {'key': 'value'}`
-  - if a value is an instance of a class, e.g., `assert isinstance(3, int)`
-
-
-## 5 :keyboard: Practicing using the assert command in Python
+## 1 :keyboard: :white_check_mark: Exercise 1: Adding more tests
 
 > [!TIP]
 > - I recommend opening another browser tab with this repository, so you can keep these instructions open for reference all the time.
 > - In case you haven't used Codespace before, I will provide very detailed steps for this first exercise.
+> - This exercise has :keyboard: and :white_check_mark:, that means you will have a specific task and the output will be checked by automatic tests I wrote for this course, and the repository will move to **Part 2** after the task is completed.
+> - This is our first exercise of this type, so I will provide very detailed steps to guide you.
 
-1. Open Codespace on `week1` branch.
-  <details>
-  <summary>If you don't remember how to open the Codespace, expand this line to see all steps</summary>
-    
-    - Start from the landing page of your repository opened in new tab.
-    - Change the branch to "week1" (you should see a new content that was not in the `main` branch)
-    - Click the green "Code" button located in the middle of the page.
-    - Select the Codespaces tab in the box that pops up and then click the "Create codespace on week1" button.
-    - Verify your codespace is running. The browser should contain a VS Code web-based editor and a terminal.
-    - In the terminal, move to the `week1` directory that is the working directory for this week.
-    (if you don't see this directory, you're likely in a wrong branch).    
-  </details>
+We will start by returning to the code from the previous part that you can find in `week2/prime_factors.py`.
+Last week we created a simple testing function `test_prime_factors`.
+All of the examples from the test are for numbers that are not prime and have more than one factor.
+Now, we can add tests for prime numbers and numbers that have only one factor.
+One of the examples could be a number 2, and the test could simply check the length of the list of factors:
 
-
-2. Open a Python interpreter (run `python` command in the terminal)
-3. Practice using the `assert` statement, for example:
-   - check if letter "a" in your name
-   - create a list and check if the length of the list is 3
-   - create a dictionary and check if the key `name` is in the dictionary
-   - if the key `name` exists, check if its value is "John"
-   - check if the sum of two numbers is equal to 10
-   - check if a number is even
-   - check if `pi` from the `math` module is a float
-   - check if `pi` from the `math` module is equal to 3.14
-
-## 6 :book: Using the assert statement to test a function
-Similarly, you can use the `assert` statement to test your functions.
-Let's say your task is to write a function that finds prime factors
-of a number, `prime_factors`, you could use the `assert` statement to check if the
-function works correctly for an example:
 ```python
-assert prime_factors(8) == [2, 2, 2]
-```
-You will get no output if the function `prime_factors` works correctly for the example.
-If you get an output, it means that the function `prime_factors` does not return the expected output.
-The simplest way of using the `assert` doesn't give too much information in case the function doesn't work correctly.
-
-In order to get any meaningful information, you would have to add a message to the `assert` statement, e.g.
-```python
-assert prime_factors(8) == [2, 2, 2], f"The prime factors of 8 should be [2, 2, 2], but it is {prime_factors(8)}"
-```
-This way, you will get a meaningful message if the function doesn't work as expected.
-
-Of course, this is only one example, you would likely want to check the function for more examples, e.g.
-```python
-assert prime_factors(8) == [2, 2, 2], f"The prime factors of 8 should be [2, 2, 2], but it is {prime_factors(8)}"
-assert prime_factors(18) == [2, 3, 3], f"The prime factors of 18 should be [2, 3, 3], but it is {prime_factors(18)}"
-assert prime_factors(108) == [2, 2, 3, 3, 3], f"The prime factors of 108 should be [2, 2, 3, 3, 3],  but it is {prime_factors(108)}"
+def test_prime_numbers():
+    assert len(prime_factors(2)) == 1
 ```
 
-In order to automate the process, we can create a function `test_prime_factors` that will check 
-if the function returns the expected output for all the examples and run this function in the `__main__` block 
-in order to run the tests when the script is executed, e.g.:
-```python
-def test_prime_factors():
-    assert prime_factors(8) == [2, 2, 2], f"The prime factors of 8 should be [2, 2, 2], but it is {prime_factors(8)}"
-    assert prime_factors(18) == [2, 3, 3], f"The prime factors of 18 should be [2, 3, 3], but it is {prime_factors(18)}"
-    assert prime_factors(108) == [2, 2, 3, 3, 3], f"The prime factors of 108 should be [2, 2, 3, 3, 3],  but it is {prime_factors(108)}"
+1. You can add the test to `week2/prime_factors.py` file (remember to add to the `__main__` block) 
+and rerun the script to check if the test passes. 
+2. Add examples for other prime numbers, e.g. `7`, and run the script again. What do you see? 
+If you haven't changed the function `prime_factors` you likely see that the test fails.
+3. Fix the function `prime_factors`:
+  - Try to read carefully the function `prime_factors` and find the reason why it doesn't work for the number `7` (or other prime numbers)
+  - Try to fix the function `prime_factors` and with every change, run the script `prime_factors.py` to check if the function works correctly for all the examples.
+  - If you can't find the reason why the function doesn't work, you can take a look at the solution in the `week2/solutions` directory,
+and correct the function in the `week2/prime_factors.py` file. 
+Don't forget to run the script again to check if the function works correctly for all the examples.
 
-if __name__ == "__main__":
-    test_prime_factors()
+
+## 2 :book: :keyboard: Introduction to `pytest`
+
+As we saw in the previous exercise, we can use run the script with testing functions using `assert` statements, 
+but it is not the most efficient way to test the code.
+As you probably noticed, there is a lot of repetitions and "boilerplate" code that you need to write on your own.
+You also don't have a clear overview of which tests passed and which failed and the script stops after the first failed test.
+This could be improved by writing more complex scripts, but it would require even more time and efford from you.
+This is why many developers use testing frameworks that help them to write tests more efficiently and provide a clear overview of the test results.
+In Python, one of the most popular testing frameworks is `pytest`.
+
+Pytest is not a part of the python standard library, so if you want to ues it on your own laptop, 
+you should install it by running `pip install pytest` in your terminal, but it is already installed in the Codespace environment.
+
+Pytest is well known for being easy to use when writing small tests, 
+but it also scales to support complex functional testing for applications and libraries.
+The simplest tests written in pytest are based on the `assert` statement, that we practiced in previous exercises, 
+but pytest provides a lot of additional features that make writing tests easier and more efficient.
+
+In fact, we can even use the tests that we wrote in the previous exercise in the pytest framework.
+To do this, you can run in the terminal:
+
+```bash
+pytest week2/prime_factors.py
 ```
 
-## 7. :keyboard: :white_check_mark: Exercise 1: Creating the first test function
+This will run all the tests that are in the `week2/prime_factors.py` file.
+In order to see the output of the tests, you can run the command with the `-v` flag:
+
+```bash
+pytest -v week2/prime_factors.py
+```
+
+The reason why pytest knows which functions are tests is that they are named with the `test_` prefix,
+you don't actually need to actually call the test in the `__main__` block for pytest to run them.
+You should remove the block and run pytest again.
+
+It is accustomed keeping the tests in separate files, e.g., `week2/test_prime_factors.py`,
+and then you can run pytest without any arguments. 
+It will search for all the files that have the `test_` prefix in the current directory and all subdirectories.
+
+## 3 :keyboard: :white_check_mark: Exercise 1: Using `pytest` for testing
 > [!TIP]
 > - This exercise has :keyboard: and :white_check_mark:, that means you will have a specific task and the output will be checked by automatic tests I wrote for this course, and the repository will move to **Part 2** after the task is completed.
-> - This is our first exercise of this type in this course, so I will provide very detailed steps to guide you.
-
-1. Go to terminal in Codespace (you can use the one that you opened in part 5, or follow the instruction from that part to open again)
-2. Run the script `week1/prime_factors.py`:
-  - Go to `week1` directory (if you don't see this directory, you're likely in a wrong branch)
-  - Check the content of `prime_factors.py`, you should see the function `prime_factors` that finds prime factors of a number,
-and the function `test_prime_factors` that checks if the function works correctly for the number `8`.
-  - Run the script `prime_factors.py` by executing `python prime_factors.py` in the terminal. Do you see any output?
-3. Update the script `week1/prime_factors.py`:
-  - It is nice to have some confirmations that the tests actually run and all results were as expected. 
-Let's add a print statement after the execution `test_prime_factors` and run the script again.
-  - Add additional examples to the test function `test_prime_factors`, check the output for the numbers `18` and `108`, and run the script again. What do you see? 
-  - Add a message to the `assert` statement for each example in the `test_prime_factors` function, in order to see more information about the error, and run the script again.
-4. Fix the function `prime_factors`:
-
-Now you should know that the function doesn't work correctly for number `18`.
-It is pretty common situation, that your function works well for one example, but doesn't work for all. 
-You have to find what causes it, and fix the function.
-**One important thing to notice is that you actually don't know if the function works correctly for the number `108`,
-since your testing function rises an `AssertionError` for the number `18` and stops the execution.**
-  - Try to read carefully the function `prime_factors` and find the reason it doesn't work for the number `18`.
-  - Try to fix the function `prime_factors` and with every change, run the script `prime_factors.py` to check if the function works correctly for all the examples.
-  - If you can't find the reason the function doesn't work, you can take a look at the solution in the `week1/solutions` directory, and correct the function in the `week1/prime_factors.py` file. Don't forget to run the script again to check if the function works correctly for all the examples!
-5. Commit your changes:
-  - Use Codespace to commit your changes (you can either use terminal or the "Source Control" tab that is in the main panel on the left)
-6. Create a Pull Request to the `main` branch:
-  - Use GitHub interface to create a Pull Request
-  - Check the status of tests
-  - If all tests pass, merge the Pull Request, this should update a new `README.md` on the main page of the repository (you can reload the page after 30-60s if you don't see the new content)
 
 
-## 8. Summary
-Today you learned about the importance of testing in software development, and you practiced using the `assert` statement in Python.
-You also learned how to use the `assert` statement to test your functions, and you created a test function that checks if the function `prime_factors` works correctly for the examples.
+In this exercise, we will create a separate file for the tests 
+and learn how to make the tests shorter and more efficient using pytest features.
 
-**Good job for today! Next time we will learn more about testing in Python, and we will use the `pytest` library.**
+1. Move all the test functions to the new file: `week2/test_prime_factors.py`
+
+   After moving the test functions, you should remove the `__main__` block from the `week2/prime_factors.py` file, 
+and import the `prime_factors` function in the new test file.
+Once this is done, you can run the tests using simple `pytest -v` command.
+In case you experience any problems, you can check the solution in the `week2/solutions` directory.
+
+2. Simplify the `assert` statements
+
+   Remember that in the previous section you had to write the assert statement for every test case? 
+You don't have to do it anymore! Pytest will provide you with a clear overview of which test failed and why.
+Remove the assert messages from the test functions and run the tests again.
+You might want to introduce for a moment an error in the `prime_factors` function to see how the pytest output looks like
+when the test fails.
+You will see that pytest provides you with a clear expleanation if something gets wrong.
+
+3. Use `parametrize` feature
+
+   One thing that it's still not great is that you have to a separate `assert` statement for every test case, 
+and your test still exits after the first failed test. 
+But you can easily fix this by using the `parametrize` feature.
+The `parametrize` feature allows you to run the same test function with different arguments, 
+and it is one of the most powerful, yet simple, features of pytest.
+
+  You can use the `parametrize` feature by adding a `@pytest.mark.parametrize` decorator above the test function.
+The decorator takes two arguments: the name of the arguments that you want to parametrize 
+(in our case that will be the number and the expected output), and a list of tuples with the arguments.
+
+```python
+from .prime_factors import prime_factors
+import pytest
+
+@pytest.mark.parametrize("number, expected", [
+    (2, [2]),
+    (7, [7]),
+    (8, [2, 2, 2]),
+    (18, [2, 3, 3]),
+    (108, [2, 2, 3, 3, 3]),
+])
+def test_prime_factors(number, expected):
+    assert prime_factors(number) == expected
+```
+Use the code above to parametrize `test_prime_factors` function and create your own decorator for the `test_prime_numbers` function.
+
+What do you see when you run the tests now?
+What happen if you introduce an error in the `prime_factors` function?
+
+
+## 4 :book: Introduction to `pytest.mark` features
+In the previous exercise, you learned about the `parametrize` feature, 
+that you can access by importing `pytest` and using the `@pytest.mark.parametrize` decorator.
+You can read more about the `parametrize` feature in the [pytest documentation](https://docs.pytest.org/en/stable/how-to/parametrize.html#pytest-mark-parametrize-parametrizing-test-functions).
+
+In addition to `parametrize`, pytest provides many other features, including `skip`, `skipif` and `xfail` marks, 
+that allow you to skip tests under certain conditions or mark tests that are expected to fail.
+You can read more about these features in the [pytest documentation](https://docs.pytest.org/en/stable/skipping.html).
+
+## 5 :book: Testing exceptions
+Sometimes you want to test if the function raises an exception under certain conditions.
+You can do this by using the `pytest.raises` context manager.
+For example, the `prime_factors` function should raise an exception (e.g., `ValueError`) when the input is not an integer.
+You could test it by using the following code:
+
+```python
+import pytest
+from .prime_factors import prime_factors
+
+def test_prime_factors_raises():
+    with pytest.raises(ValueError):
+        prime_factors(2.5)
+```
+
+You could read more about the `pytest.raises` context manager in the [pytest documentation](https://docs.pytest.org/en/stable/assert.html#assertions-about-expected-exceptions).
+
+
+## 6 :keyboard: :white_check_mark: Exercise 2: Using `pytest.mark` and pytest.raises
+
+In this exercise, you will practice how to test exceptions and how to use the `skip` and `xfail` marks in pytest.
+In previous example, we had first the function and then the test, but in this exercise, 
+you will write the test first and then will update the function to pass the test.
+It is a common practice in test-driven development (TDD) approach (we will talk about it more later).
+
+1. Create a new test function `test_prime_factors_raises` in the `test_prime_factors.py` file.
+  
+   You can use the code from the previous section as an example. Run the test to see if it fails.
+2. Fix the code in the `prime_factors` function to pass the test.
+  
+   Remember to run the tests after every change in the code to check if the function works correctly.
+Have you noticed that changing the code when you have tests is much easier and safer?
+
+3. Create another test function for number `1` that should raise an exception and use `xfail`.
+  
+   What happens when you run the tests now? You can fix this by adding a condition in the `prime_factors` function, 
+but you have also the option to mark the test as `xfail` if you want to fix it later. 
+This is a very useful feature when you have a lot of tests and you want to focus on the most important ones first.
+It also allows you to keep track of the tests that you need to fix in the future, instead of removing them.
+
+4. Create a test function for number `0` that should raise an exception and use `skip`.
+  
+   Let's create another test that will check if the function raises an exception for the number `0`. 
+We know that the function is not ready for this case, but we can see what happens when we run the test.
+What happens this time when you run the tests? It is likely that you don't see any output from the test for the number `0`.
+You can use `ctrl` + `c` to stop the tests and think what went wrong.
+Could you use `xfail` for this test? What is the difference between `xfail` and `skip`?
+
+5. In the last part, you can use `pytest.mark.parametrize` to merge all test that we wrote in this part.
+  
+   Note, that `xfail` and `skip` marks could be also used as arguments in the `parametrize` decorator!
+
+## 7 Summary
+
+In this part, you learned about the `pytest` framework and how to use it to write tests for your code.
+You also learned how to use the `parametrize` feature to run the same test function with different arguments,
+and how to use the `pytest.mark` features to skip tests or mark tests that are expected to fail.
+
+In the next part we will learn about pytest `fixtures` and how to use them to write more complex tests.
 
 > [!IMPORTANT]
-> Following all the steps from part 7, including creating and merging the Pull Request, is necessary to move to the next parts of the course.
+> Update the repository in order to move to the next week/part of the course:
+>  - After finishing all the exercises, create a Pull Request from the `week2` branch to the `main` branch
+>  - Check the status of tests
+>  - If all tests pass, merge the Pull Request, this should update a new `README.md` on the main page of the repository 
+> (you can reload the page after 30-60s if you don't see the new content)
 
 <footer>
 
